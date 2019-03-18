@@ -64,7 +64,8 @@ def unet(pretrained_weights = None,input_size = (256,256,1)):
     strategy = tf.contrib.tpu.TPUDistributionStrategy(tpu_cluster_resolver)
     model = tf.contrib.tpu.keras_to_tpu_model(model, strategy=strategy)
 
-    model.compile(optimizer = tf.train.AdamOptimizer(learning_rate = 1e-4), loss = 'binary_crossentropy', metrics = ['accuracy'])
+    model.compile(optimizer = tf.train.AdamOptimizer(learning_rate = 1e-4), loss=tf.keras.losses.sparse_categorical_crossentropy,
+    metrics=['sparse_categorical_accuracy'])
     
     #model.summary()
 

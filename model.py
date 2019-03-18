@@ -59,7 +59,6 @@ def unet(pretrained_weights = None,input_size = (256,256,1)):
     conv10 = Conv2D(1, 1, activation = 'sigmoid')(conv9)
 
     model = Model(inputs = inputs, outputs = conv10)
-    model = tf.contrib.tpu.keras_to_tpu_model(model, strategy=strategy)
     tpu_grpc_url = "grpc://"+os.environ["COLAB_TPU_ADDR"]
     tpu_cluster_resolver = tf.contrib.cluster_resolver.TPUClusterResolver(tpu_grpc_url)
     strategy = tf.contrib.tpu.TPUDistributionStrategy(tpu_cluster_resolver)
